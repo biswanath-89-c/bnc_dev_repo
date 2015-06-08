@@ -9,8 +9,7 @@ function onDeviceReady() {
 
     $('#getIt').click(function() {
         navigator.geolocation.getCurrentPosition(disp);
-    });
-    
+    });  
 
 
 }
