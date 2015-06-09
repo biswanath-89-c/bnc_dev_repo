@@ -89,6 +89,12 @@
 
     </script>
   </head>
+  <div class="custom_file_upload">
+  	<input type="text" class="file" name="file_info">
+  	<div class="file_upload">
+  		<input type="file" id="file_upload" name="file_upload">
+  	</div>
+  </div>
   <body>
     <form id="regform">
         <button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">Select Photo:</button><br>
@@ -98,6 +104,7 @@
         Last Name: <input type="text" id="lastname" name="lastname"><br>
         Work Place: <input type="text" id="workplace" name="workPlace"><br>
         <input type="button" id="btnSubmit" value="Submit" onclick="uploadPhoto();">
+        
     </form>
   </body>
 </html>
