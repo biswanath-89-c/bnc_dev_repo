@@ -17,7 +17,7 @@
 
     <preference name="permissions" value="none"/>
 
-	<gap:plugin name="org.apache.cordova.geolocation" />
+	<gap:plugin name="org.apache.cordova.file" />
 	
 
     <icon src="res/icon/android/drawable-ldpi/tp_icon.png" gap:platform="android" gap:qualifier="ldpi" />
