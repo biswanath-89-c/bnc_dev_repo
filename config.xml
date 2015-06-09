@@ -17,8 +17,12 @@
 
     <preference name="permissions" value="none"/>
 
+<<<<<<< HEAD
 	<gap:plugin name="org.apache.cordova.file" />
 	
+=======
+
+>>>>>>> 095399e8a32abee02a1e0d8381984a175ccb0115
 
     <icon src="res/icon/android/drawable-ldpi/tp_icon.png" gap:platform="android" gap:qualifier="ldpi" />
     <icon src="res/icon/android/drawable-mdpi/tp_icon.png" gap:platform="android" gap:qualifier="mdpi" />
