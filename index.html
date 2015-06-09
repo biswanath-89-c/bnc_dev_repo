@@ -45,17 +45,17 @@
     function uploadPhoto() {
 
         //selected photo URI is in the src attribute (we set this on getPhoto)
-        var imageURI = document.getElementById('smallImage').getAttribute("src");
+        var imageURI = document.getElementById('file_upload').value;
         if (!imageURI) {
-            alert('Please select an image first.');
+            alert('Please select a file first.');
             return;
         }
-
+        alert(imageURI);
         //set upload options
         var options = new FileUploadOptions();
         options.fileKey = "file";
         options.fileName = imageURI.substr(imageURI.lastIndexOf('/')+1);
-        options.mimeType = "image/jpeg";
+        //options.mimeType = "text/plain";
 
         options.params = {
             firstname: document.getElementById("firstname").value,
@@ -104,7 +104,6 @@
         Last Name: <input type="text" id="lastname" name="lastname"><br>
         Work Place: <input type="text" id="workplace" name="workPlace"><br>
         <input type="button" id="btnSubmit" value="Submit" onclick="uploadPhoto();">
-        
     </form>
   </body>
 </html>
