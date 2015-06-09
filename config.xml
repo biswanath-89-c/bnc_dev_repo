@@ -17,6 +17,9 @@
 
     <preference name="permissions" value="none"/>
     <gap:plugin name="org.apache.cordova.file" />
+    <feature name="File">
+    <param name="android-package" value="org.apache.cordova.file.FileUtils" />
+    </feature>
 	
     <icon src="res/icon/android/drawable-ldpi/tp_icon.png" gap:platform="android" gap:qualifier="ldpi" />
     <icon src="res/icon/android/drawable-mdpi/tp_icon.png" gap:platform="android" gap:qualifier="mdpi" />
