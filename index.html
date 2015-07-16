@@ -1,135 +1,53 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Submit form</title>
+    <title>FileWriter Example</title>
 
     <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
     <script type="text/javascript" charset="utf-8">
-    function shwImg() {
-  
-      var oFReader = new FileReader();
-  
-      oFReader.readAsDataURL(document.getElementById("uploadImage").files[0]);
-  
-      oFReader.onload = function(oFREvent) {
-  
-      document.getElementById("imgInDiv").src = oFREvent.target.result;
-  
-      //alert(oFREvent.target.result);
-  
-      };
-  
-    };
-
-    var pictureSource;   // picture source
-    var destinationType; // sets the format of returned value
 
     // Wait for device API libraries to load
     //
-    document.addEventListener("deviceready",onDeviceReady,false);
+    document.addEventListener("deviceready", onDeviceReady, false);
 
     // device APIs are available
     //
     function onDeviceReady() {
-        pictureSource = navigator.camera.PictureSourceType;
-        destinationType = navigator.camera.DestinationType;
+        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
     }
 
-
-    // Called when a photo is successfully retrieved
-    //
-    function onPhotoURISuccess(imageData) {
-
-        // Show the selected image
-        var smallImage = document.getElementById('smallImage');
-        smallImage.style.display = 'block';
-        //smallImage.src = imageData;
-        smallImage.src = "data:image/jpeg;base64," + imageData;
-        alert("Success:" + imageData);
+    function gotFS(fileSystem) {
+        fileSystem.root.getFile("readme.txt", {create: true, exclusive: false}, gotFileEntry, fail);
     }
 
-
-    // A button will call this function
-    //
-    function getPhoto(source) {
-      // Retrieve image file location from specified source
-      navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 50,
-        destinationType: destinationType.DATA_URL,
-        sourceType: source });
+    function gotFileEntry(fileEntry) {
+        fileEntry.createWriter(gotFileWriter, fail);
     }
 
-    function uploadPhoto() {
-
-        //selected photo URI is in the src attribute (we set this on getPhoto)
-        var imageURI = document.getElementById('file_upload').value;
-        if (!imageURI) {
-            alert('Please select a file first.');
-            return;
-        }
-        onPhotoURISuccess(imageURI);
-        alert("Selected File:" + imageURI);
-        //set upload options
-        var options = new FileUploadOptions();
-        options.fileKey = "file";
-        options.fileName = imageURI.substr(imageURI.lastIndexOf('/')+1);
-        //options.mimeType = "text/plain";
-
-        options.params = {
-            firstname: document.getElementById("firstname").value,
-            lastname: document.getElementById("lastname").value,
-            workplace: document.getElementById("workplace").value
-        }
-
-        var ft = new FileTransfer();
-        ft.upload(imageURI, encodeURI("http://127.0.0.1:8080/"), win, fail, options);
-    }
-
-    // Called if something bad happens.
-    //
-    function onFail(message) {
-      alert('File Selection failed: '+message);
-      console.log('Failed because: ' + message);
-    }
-
-    function win(r) {
-        console.log("Code = " + r.responseCode);
-        console.log("Response = " + r.response);
-        //alert("Response =" + r.response);
-        console.log("Sent = " + r.bytesSent);
+    function gotFileWriter(writer) {
+        writer.onwriteend = function(evt) {
+            console.log("contents of file now 'some sample text'");
+            writer.truncate(11);
+            writer.onwriteend = function(evt) {
+                console.log("contents of file now 'some sample'");
+                writer.seek(4);
+                writer.write(" different text");
+                writer.onwriteend = function(evt){
+                    console.log("contents of file now 'some different text'");
+                }
+            };
+        };
+        writer.write("some sample text");
     }
 
     function fail(error) {
-        alert("An error has occurred: Code = " + error.code);
-        console.log("upload error source " + error.source);
-        console.log("upload error target " + error.target);
+        console.log(error.code);
     }
 
     </script>
   </head>
-  <div class="custom_file_upload">
-  	<input type="text" class="file" name="file_info">
-  	<div class="file_upload">
-  		<input type="file" id="file_upload" name="file_upload">
-  	</div>
-  </div>
   <body>
-    <form id="regform">
-        <button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">Select Photo:</button><br>
-        
-        <img style="width:60px;height:60px;" id="smallImage" src="" />
-
-        First Name: <input type="text" id="firstname" name="firstname"><br>
-        Last Name: <input type="text" id="lastname" name="lastname"><br>
-        Work Place: <input type="text" id="workplace" name="workPlace"><br>
-        <input type="button" id="btnSubmit" value="Submit" onclick="uploadPhoto();">
-    </form>
-    <hr/>
-    <input id="uploadImage" type="file" name="myPhoto" onchange="shwImg();" />
-
-<br />
-
-<img id="imgInDiv" style="width: 100px; height: 100px;" />
-
-
+    <h1>Example</h1>
+    <p>Write File</p>
   </body>
 </html>
