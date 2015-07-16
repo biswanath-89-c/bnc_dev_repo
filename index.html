@@ -5,6 +5,21 @@
 
     <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
     <script type="text/javascript" charset="utf-8">
+    function shwImg() {
+  
+      var oFReader = new FileReader();
+  
+      oFReader.readAsDataURL(document.getElementById("uploadImage").files[0]);
+  
+      oFReader.onload = function(oFREvent) {
+  
+      document.getElementById("imgInDiv").src = oFREvent.target.result;
+  
+      //alert(oFREvent.target.result);
+  
+      };
+  
+    };
 
     var pictureSource;   // picture source
     var destinationType; // sets the format of returned value
@@ -108,5 +123,13 @@
         Work Place: <input type="text" id="workplace" name="workPlace"><br>
         <input type="button" id="btnSubmit" value="Submit" onclick="uploadPhoto();">
     </form>
+    <hr/>
+    <input id="uploadImage" type="file" name="myPhoto" onchange="shwImg();" />
+
+<br />
+
+<img id="imgInDiv" style="width: 100px; height: 100px;" />
+
+
   </body>
 </html>
