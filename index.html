@@ -23,13 +23,14 @@
 
     // Called when a photo is successfully retrieved
     //
-    function onPhotoURISuccess(imageURI) {
+    function onPhotoURISuccess(imageData) {
 
         // Show the selected image
         var smallImage = document.getElementById('smallImage');
         smallImage.style.display = 'block';
-        smallImage.src = imageURI;
-        alert("Success:" + imageURI);
+        //smallImage.src = imageData;
+        smallImage.src = "data:image/jpeg;base64," + imageData;
+        //alert("Success:" + imageData);
     }
 
 
