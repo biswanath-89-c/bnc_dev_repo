@@ -22,7 +22,9 @@
 
 <feature name="File"><param name="android-package" value="org.apache.cordova.file.FileUtils" /></feature>
 <feature name="Camera"><param name="android-package" value="org.apache.cordova.camera.CameraLauncher" /></feature>
-
+<feature name="FileTransfer">
+    <param name="android-package" value="org.apache.cordova.FileTransfer" />
+</feature>
 	
     <icon src="res/icon/android/drawable-ldpi/tp_icon.png" gap:platform="android" gap:qualifier="ldpi" />
     <icon src="res/icon/android/drawable-mdpi/tp_icon.png" gap:platform="android" gap:qualifier="mdpi" />
